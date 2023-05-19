@@ -1,0 +1,266 @@
+@charset 'utf-8';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Poppins&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+/* reset ------------------------------------------------ */
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color:#000;
+}
+
+ul li {
+    list-style: none;
+}
+
+
+/* style ------------------------------------------------*/
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+nav {
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.nav-wrap {
+    width:1200px;
+    height:90px;
+    margin:0 auto;
+
+    display: flex;
+    justify-content: space-between;
+
+    /* 높이 값이 있어야 정렬 */
+    align-items: center;
+}
+
+.nav-wrap .logo {
+    font-size:20px;
+    text-align: center;
+    line-height: 0.95; /*1이 기준 */
+}
+
+.menu ul {
+    display: flex;
+}
+
+.menu ul li {
+    margin-left: 50px;
+}
+
+.menu ul li a {
+    
+    /* 사용할 폰트 크기를 기준 폰트로 나누기 : 단위 rem(em)
+    14px / 16px */
+    font-size: 0.875rem;
+
+    /* font-weight: bold; : 700 */
+    font-weight: 700;
+}
+
+.menu ul li a.active {
+    color:#f00;
+    font-family: 'Poppins', sans-serif;
+}
+
+.menu ul li a:hover {
+    text-decoration: underline;
+}
+
+.hero {
+    background-image: url('../images/f-w2.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    width:100%;
+    height:800px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.hero-wrap {
+    width:1200px;
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    background-color: rgba(255,255,255,0.5);
+    padding: 50px 40px;
+    border-radius: 5px;
+}
+
+.hero-content h6 {
+    font-size: 18px;
+    color: rgba(255, 0, 0, 0.7);
+}
+
+.hero-content h1 {
+    font-size: 50px;
+    line-height: 60px;
+    margin-top:15px;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 14px;
+    color:rgba(0, 0, 0, 0.6);
+    font-weight: 700;
+}
+
+.hero-content .btn-wrap .hero-btn {
+    margin-top:30px;
+    border:1px solid transparent;
+    outline: 0;
+    background-color: tomato;
+    color:#fff;
+    padding:15px 25px;
+    border-radius: 3px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+.hero-content .btn-wrap .hero-btn:hover {
+    background-color: transparent;
+    color:#000;
+    font-weight: bold;
+    border:1px solid tomato;
+    transition: 0.8s;
+    cursor: pointer;
+}
+
+
+main .one-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.one, .two
+ {
+    width:1200px;
+    margin:0 auto;
+}
+
+.one .one-content img, .two .one-content img {
+    width:380px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.one .one-content img:hover, .two .one-content img:hover {
+    transform: scale(1.2);
+    transition: 0.2s;
+}
+
+section {
+    padding: 150px 0;
+}
+
+
+.one h6, .two h6 {
+    font-size: 14px;
+    color: tomato;
+    letter-spacing: 3px;
+}
+
+.one h2, .two h2 {
+    font-size:40px;
+    font-family: 'Poppins', sans-serif;
+    margin-top:20px;
+}
+
+.one .one-title, .two .one-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+
+.one-content .one-content-box {
+    overflow: hidden;
+}
+
+.one-content .box-detail p {
+    text-align: justify;
+}
+
+
+div.main-wrap:nth-child(even) {
+    /* background-color: #f9f9f9; */
+    border-top: 1px solid #c7c7c7;
+}
+
+
+footer .footer-bottom {
+    text-align: center;
+    padding: 30px 0;
+    background-color: #c7c7c7;
+    /* border-top: 1px solid #ccc; */
+    font-family: 'Poppins', sans-serif;
+}
+
+footer {
+    background-color:#f7f7f7;
+}
+
+.footer-top {
+    width:1200px;
+    margin: 0 auto;
+
+    padding: 50px 0;
+}
+
+footer .footer-title {
+    text-align: center;
+}
+
+footer .footer-title h3 {
+    font-size:30px;
+    margin-bottom: 20px;
+}
+
+footer .footer-title p {
+    font-size: 12px;
+}
+
+footer .footer-content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 100px;
+}
+
+footer .footer-content i {
+    font-size: 40px;
+    font-weight: 700;
+}
+
+footer .footer-icon {
+    text-align: center;
+}
+
+footer .footer-icon i {
+    color: #ccc;
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+footer .footer-icon h6 {
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+}
+
+footer .footer-icon p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    margin-top:5px;
+}
