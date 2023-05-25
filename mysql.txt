@@ -1,0 +1,153 @@
+DDL : - 데이터베이스 정의어 : CREATE (생성), DROP(삭제), ALTER(변경)
+DML :- 데이터베이스 조작어 : SELECT, INSERT, UPDATE, DELETE
+DCL :  권한부여(GRANT), 권한삭제(REVOKE)
+
+- 제약조건(constraint) : 프로젝트 마무리할 때 설정
+  - not null(값이 빈 값이 x)
+  - primary key(중복된 x,  유일성) : 열쇠 모양으로 표시
+  - foreign key(외래키 - 조인) : 참조무결성이 훼손이 되었다.
+  - unique(값이 중복 x)
+  - default '0': 만약에 값을 입력 하지 않으면 0으로 초기값 설정
+
+** 관계형데이터베이스(RDBMS)
+Mysql Database Server(5.x, 8.x)
+1. 관리자 계정 : 1개 - 모든 권한
+ (1) 계정명 : root
+ (2) 비밀번호 : 설치 또는 ALTER문 수정을 할 수 있음
+
+2. 사용자계정 : 여러 개 - 부분 권한
+  (1) 관리자가 사용자 데이터베이스를 생성해 주고(CREATE database)
+  (2) 사용자 ID/PWD를 생성해 주소(CREATE user)
+  (3) 관리자가 권한을 부여(GRANT )
+
+ ex) 
+1. 관리자로 접속 : springdb
+2. 사용자 생성
+   CREATE user 계정명@'localhost' identified by '비밀번호';
+   CREATE user 계정명@'%' identified by '비밀번호';
+   ex) CREATE user spring12@'%' identified by '1234';
+   : % : 외부에서, 지금 만든 계정이름으로 접속이 가능하게 끔
+
+3. GRANT
+   GRANT 권한 ON 관리자생성한디비.* To '계정명'@'%' with grant option;
+
+   ex) GRANT ALL ON springdb.* To 'spring12'@'%' with grant option;
+
+4. 서버에서 사용하는 새로고침(설정 적용)
+flush privileges;
+
+5. 권한 확인 - 1
+show grants for 계정명@'%';
+show grants for spring12@'%';
+
+6. 사용자 계정 생성 여부
+1. 관리자 로그인 후
+2. use mysql
+3. select host, user from user;
+
+
+%%%%%%%%%%
+예시.
+사용자 이름 : grp
+사용자 데이터베이스이름 : grp
+테이블이름 : 
+grp_register(
+id int not null auto
+userid var
+)
+
+관리자로 접속해서
+1. 관리자가 데이터베이스 : koreaitdb
+2. 사용자 계정 : koreaitdb / 비밀번호 : 
+3. 권한 부여(전체권한)
+4. flush privileges;
+
+5. 생성한 사용자로 접속해서
+use koreaitdb;
+
+create table koreaitdb_register(
+userid varchar(20),
+passwd varchar(20)
+);
+
+GRANT 권한 ON 관리자생성한디비.* To '계정명'@'%' with grant option;
+
+권한 제거 : REVOKE
+     REVOKE 부여한권한 ON 부여받은디비.* FROM 계정명@'%;
+ex) REVOKE     ALL       ON  koreaitdb.*     FROM koreaitdb@'%';
+flush privileges;
+
+확인
+use koreaitdb; -> access denied
+
+다시 권한
+GRANT ALL ON springdb.* To 'spring12'@'%' with grant option;
+
+use koreaitdb; -> ok
+-----------------------------------------------------------------
+
+use koreaitdb;
+
+CREATE TABLE kdb_member(
+	kdb_mem_name varchar(20) not null,
+	kdb_mem_pwd varchar(20) not null,
+	kdb_mem_tel1 varchar(3),
+	kdb_mem_tel2 varchar(4),
+	kdb_mem_tel3 varchar(4),
+	kdb_mem_post char(5),
+	kdb_mem_addr1 varchar(255),
+	kdb_mem_addr2 varchar(255),
+	kdb_mem_jumin char(14) unique,
+	kdb_mem_reg date
+);
+
+INSERT INTO kdb_member 
+VALUES('홍길동1', '1111', '010', '1234', '4567', '1111', '부산', '부산진구', '001234-5544789', '2023-01-01');
+
+INSERT INTO kdb_member 
+VALUES('홍길동2', '1111', '010', '1234', '4567', '1111', '부산', '부산진구', '001235-5544789', '2022-01-01');
+
+INSERT INTO kdb_member 
+VALUES('홍길동3', '1111', '010', '1234', '4567', '1111', '부산', '부산진구', '101235-5544789', '2021-10-31');
+
+INSERT INTO kdb_member 
+VALUES('홍길동4', '1111', '010', '1234', '4567', '1111', '부산', '부산진구', '121235-5544789', '1999-12-31');
+
+INSERT INTO kdb_member 
+VALUES('홍길동5', '1111', '010', '1234', '4567', '1111', '부산', '부산진구', '221235-5544789', '2002-06-20');
+
+INSERT INTO kdb_member 
+VALUES('홍길동6', '1111', '010', '1234', '4567', '1111', '부산', '부산진구', '221235-5544780', '2008-03-10');
+
+INSERT INTO kdb_member 
+VALUES('홍길동7', '1111', '010', '1234', '4567', '1111', '부산', '부산진구', '221235-5545780', '2010-03-01');
+
+INSERT INTO kdb_member 
+VALUES('홍길동8', '1111', '010', '1234', '4567', '1111', '부산', '부산진구', '111235-5545780', '2011-03-01');
+
+INSERT INTO kdb_member 
+VALUES('홍길동9', '1111', '010', '1234', '4567', '1111', '부산', '부산진구', '111235-5445780', '2011-03-02');
+
+INSERT INTO kdb_member 
+VALUES('홍길동10', '1111', '010', '1234', '4567', '1111', '부산', '부산진구', '111235-5435780', '2018-05-02');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
