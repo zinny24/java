@@ -1,0 +1,151 @@
+** 부서(부모) + 사원(자식) : ERD
+    tb_buseo      tb_employee
+
+부서(tb_buseo) : 부서코드, 부서이름
+
+
+조인(연결)할 때는 pk(부모), fk(자식) 모두 존재
+
+create table tb_buseo(
+buseo_code varchar(10),
+buseo_name varchar(20),
+primary key(buseo_code)
+);
+
+INSERT INTO tb_buseo VALUES('100', '인사과');
+INSERT INTO tb_buseo VALUES('200', '총무과');
+INSERT INTO tb_buseo VALUES('300', '자재과');
+INSERT INTO tb_buseo VALUES('400', '비서과');
+
+
+사원 : 사원아이디, 사원이름, 부서코드(fk)
+create table tb_employee(
+emp_id int not null auto_increment,
+emp_name varchar(10),
+buseo_code_fk varchar(10),
+primary key(emp_id),
+foreign key(buseo_code_fk) references tb_buseo(buseo_code) 
+ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+INSERT INTO tb_employee VALUES(null, '김인사', '100');
+INSERT INTO tb_employee VALUES(null, '박인사', '100');
+INSERT INTO tb_employee VALUES(null, '이총무', '200');
+INSERT INTO tb_employee VALUES(null, '강총무', '200');
+INSERT INTO tb_employee VALUES(null, '허자재', '300');
+INSERT INTO tb_employee VALUES(null, '정자재', '300');
+INSERT INTO tb_employee VALUES(null, '곽비서', '400');
+INSERT INTO tb_employee VALUES(null, '양비서', '400');
+INSERT INTO tb_employee VALUES(null, '대표님', '400');
+
+부서명, 사원번호, 사원명 출력하시오.
+
+일반조인
+SELECT buseo_name, emp_id, emp_name FROM tb_buseo, tb_employee
+WHERE buseo_code = buseo_code_fk;
+
+2. Inner join
+SELECT * FROM 부모 Inner Join 자식 ON buseo_code = buseo_code_fk;
+
+부서명, 사원번호, 사원명 출력하시오.
+
+SELECT * FROM tb_buseo INNER JOIN tb_employee ON 
+buseo_code = buseo_code_fk;
+
+
+
+
+SELECT * FROM tb_employee;
+
+대분류 코드 수정
+UPDATE tb_buseo SET buseo_code = '900' WHERE buseo_code = '100';
+
+SELECT * FROM tb_employee;
+
+----------------------------------
+
+SELECT * FROM tb_employee;
+
+대분류 코드 삭제
+DELETE FROM tb_buseo WHERE buseo_code = '100';
+
+SELECT * FROM tb_employee;
+
+
+------------------------------- 
+Entity Relation Diagram : ERD
+Workbench -> Reverse Engineer
+
+
+테이블 조인
+SELECT * FROM 부모 INNER JOIN 자식 ON 부모pk = 자식fk;
+
+SELECT buseo_name, emp_name FROM tb_buseo INNER JOIN tb_employee ON buseo_code = buseo_code_fk;
+
+부서이름별로 사원수를 표시하시오.
+***인사과(2) 총무과(2) 자재과(2) 비서실(3)
+
+조인
+1. SELECT * FROM 부모 INNER JOIN 자식 ON 부모pk = 자식fk;
+ - SELECT buseo_name, emp_name FROM tb_buseo INNER JOIN tb_employee ON buseo_code = buseo_code_fk;
+
+그룹핑
+2. SELECT buseo_name as '부서명', count(emp_id) as '사원 수' FROM tb_buseo INNER JOIN tb_employee 
+ON buseo_code = buseo_code_fk GROUP BY buseo_name;
+
+=======================================================================
+대-소,   소-상품
+
+대분류(big_cate)
+create table big_cate( -- 국내도서, 해외도서
+big_cate_code varchar(10),
+big_cate_name varchar(30),
+primary key(big_cate_code)
+);
+INSERT INTO big_cate VALUES('100', '국내도서');
+INSERT INTO big_cate VALUES('200', '해외도서');
+
+SELECT * FROM big_cate;
+
+create table small_cate(
+  small_cate_code varchar(20),
+  small_cate_name varchar(30),
+  big_cate_code_fk varchar(10), -- 대분류와 조인을 하기 위해 필요한 컬럼을 fk로 설정
+  primary key(small_cate_code),
+  foreign key(big_cate_code_fk) references big_cate(big_cate_code) ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+RESTRICT : 자식만 삭제해야(부모를 삭제X)
+
+INSERT INTO small_cate VALUES('001', '경영', '100');
+INSERT INTO small_cate VALUES('002', '에세이', '100');
+
+INSERT INTO small_cate VALUES('003', '번역본', '200');
+INSERT INTO small_cate VALUES('004', 'WROX', '200');
+INSERT INTO small_cate VALUES('005', 'OREILLY', '200');
+
+SELECT * FROM small_cate;
+
+UPDATE big_cate SET big_cate_code = '700' WHERE big_cate_code = '100';
+
+SELECT * FROM small_cate;
+
+DELETE FROM big_cate WHERE big_cate_code = '700';
+
+DELETE FROM small_cate WHERE big_cate_code_fk = '700';
+
+SELECT * FROM small_cate;
+
+
+
+상품(book) : pk, fk
+
+
+
+
+
+
+
+
+
+
